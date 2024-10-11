@@ -1,0 +1,271 @@
+/* .tiptap > * + * {
+  margin-top: 0.75em;
+  border: none;
+}
+
+ul,
+ol {
+  padding: 0 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.1;
+}
+
+code {
+  background-color: rgba(97, 97, 97, 0.1);
+  color: #616161;
+}
+
+pre {
+  background: #0d0d0d;
+  color: #fff;
+  font-family: "JetBrainsMono", monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+
+pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.8rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+blockquote {
+  padding-left: 1rem;
+  border-left: 2px solid rgba(13, 13, 13, 0.1);
+}
+
+hr {
+  border: none;
+  border-top: 2px solid rgba(13, 13, 13, 0.1);
+  margin: 2rem 0;
+}
+
+.tiptap:focus-visible {
+  border: none;
+  outline: none;
+} */
+
+.editor-container {
+    height: calc(100% - 36px);
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+  
+  .document-main {
+    min-height: calc(100% - 4rem);
+    padding: 0 1rem;
+    margin: 2rem 0;
+  }
+  
+  .tiptap-text-editor {
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  /* .editor-box > div:nth-child(2) {
+      height: 100%;
+  } */
+  #toolbar button {
+    /* color: #f2f7f9;
+    text-align: center;
+    font-family: "Raleway";
+    font-size: 0.75rem;
+    font-weight: 400; */
+    line-height: 1.125rem;
+    /* 150% */
+    padding: 0.2rem;
+  }
+  .font-size-toolbar {
+    color: #f2f7f9;
+    text-align: center;
+    font-family: "Raleway";
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.125rem;
+  }
+  #header-toolbar button {
+    color: #f2f7f9;
+    font-family: "Raleway";
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.125rem;
+    margin: 0;
+    padding: 0;
+    align-self: self-start;
+  }
+  #header-toolbar,
+  #toolbar {
+    display: flex;
+    /* width: 12.5rem; */
+    padding: 0.375rem 0.75rem;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 0.5rem;
+    /* background: #1c7794; */
+  }
+  
+  #header-toolbar {
+    gap: 0rem;
+    padding: 0.375rem 0.45rem;
+  }
+  
+  .ProseMirror {
+    font-family: "Raleway";
+    /* padding: 1rem; */
+    border-radius: 0.25rem;
+    /* background-color: #004a64; */
+    background-color: white;
+    color: #012d3a;
+    height: 100%;
+    max-height: fit-content;
+  }
+  
+  .ProseMirror:focus {
+    border: none;
+    outline: none;
+  }
+  
+  /* Basic editor styles */
+  .ProseMirror > * + * {
+    margin-top: 0.75em;
+  }
+  
+  .ProseMirror ul,
+  .ProseMirror ol {
+    padding: 0 1.1rem;
+  }
+  .ProseMirror ol {
+    list-style-type: auto;
+  }
+  
+  .ProseMirror ul {
+    list-style-type: inherit;
+  }
+  
+  .ProseMirror h1,
+  .ProseMirror h2,
+  .ProseMirror h3,
+  .ProseMirror h4,
+  .ProseMirror h5,
+  .ProseMirror h6 {
+    line-height: 1.1;
+    font-size: revert-layer;
+    font-weight: bold;
+  }
+  
+  .ProseMirror h1 {
+    color: #012d3a;
+    /* Display xs/Bold */
+    font-family: "CraftworkGrotesk-Bold";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2rem;
+    margin: 0px !important;
+  }
+  
+  .ProseMirror h2 {
+    color: #012d3a;
+    /* Text xl/Bold */
+    font-family: "Raleway";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.875rem;
+    margin: 0px !important;
+    /* 150% */
+  }
+  
+  .ProseMirror p {
+    color: #232550;
+  
+    /* Text md/Regular */
+    font-family: "Raleway";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    /* 150% */
+  }
+  
+  .ProseMirror code {
+    background-color: rgba(97, 97, 97, 0.1);
+    color: #616161;
+  }
+  
+  .ProseMirror pre {
+    background: #0d0d0d;
+    color: #fff;
+    font-family: "Raleway";
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .ProseMirror pre code {
+    color: inherit;
+    padding: 0;
+    background: none;
+    font-size: 0.8rem;
+  }
+  
+  .ProseMirror img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .ProseMirror blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid gray;
+  }
+  
+  .ProseMirror hr {
+    border: none;
+    border-top: 2px solid gray;
+    margin: 2rem 0;
+  }
+  
+  ul {
+    list-style: disc;
+  }
+  
+  ol {
+    list-style: decimal;
+  }
+  
+  @media screen and (max-width: 991px) {
+    .editor-container {
+      height: calc(100% - 91px);
+      margin-top: 75px;
+    }
+  
+    .document-main {
+      min-height: calc(100% - 7rem);
+      margin-top: 5rem;
+    }
+  
+    .tiptap-text-editor {
+      min-height: 220px;
+    }
+  }
+  
+  .tiptap p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }

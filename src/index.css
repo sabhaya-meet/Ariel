@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+button[aria-label="Close"]{
+    display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+ 
+
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(200, 198, 198);
+    border-radius: 5px;
+}
+ 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.rdrInputRanges {
+    display: none;
+  }
+  
+  .rdrInRange {
+    background: #e0ecfd !important;
+  }
+  
+  .rdrDayNumber {
+    span {
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      font-family: "DM Sans";
+      color: #344054 !important;
+      line-height: 20px;
+    }
+  }
+  
+  .rdrStartEdge,
+  .rdrEndEdge {
+    color: #5151a6 !important;
+    span {
+      color: white !important;
+    }
+  }
+  .rdrStartEdge {
+    border-radius: 20px 0 0 20px !important;
+  }
+  .rdrEndEdge {
+    border-radius: 0 20px 20px 0 !important;
+  }
+  
+  .rdrStartEdge.rdrEndEdge {
+    border-radius: 20px !important;
+  }
+  
+  .rdrDateRangeWrapper {
+    max-width: 550px !important;
+    border-radius: 12px;
+  }
+  
+  .rdrDayPassive {
+    span {
+      display: none;
+    }
+  }
+  
+  .rdrMonthAndYearWrapper {
+    margin-bottom: -45px !important;
+  }
+  
+  .rdrMonthName {
+    color: #010202 !important;
+    font-family: "DM Sans";
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center !important;
+  }
+  
+  .rdrMonthAndYearPickers {
+    display: none !important;
+  }
+  
+  .rdrMonth {
+    padding-bottom: 0 !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .rdrMonth:nth-of-type(even) {
+    border-left: 1px solid #e0ecfd;
+  }
+  
+  .rdrStartEdge + span > span,
+  .rdrEndEdge + span > span {
+    color: white !important;
+  }
+  
+  .rdrStartEdge + span + span > span,
+  .rdrEndEdge + span + span > span {
+    color: white !important;
+  }
+  .rdrDateDisplay {
+    margin-bottom: 0;
+  }
+  .rdrDateDisplayWrapper {
+    background-color: white;
+  }
+  .rdrDateDisplayItem {
+    box-shadow: none;
+    border: 1px solid #d0d5dd;
+  }
+  .rdrDateDisplayItem input {
+    color: #101828;
+    font-family: "DM Sans";
+    font-size: 1rem;
+  }
+  .analysis-container {
+    height: calc(100% - 50px);
+  }
+  
+  .renAssessment {
+    background-color: rgba(0, 15, 20, 0.3);
+  }
+  .date-picker-menu > span {
+    box-shadow: 0px 20px 24px -4px rgba(16, 24, 40, 0.08),
+      0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+  }
+  
+  .rdrDateDisplayItemActive {
+    border-color: #b2b2e9 !important;
+  }
+  
+  .date-filter-main li span[aria-hidden="true"] {
+    display: none;
+  }
+  
+  @media screen and (max-width: 421px) {
+    .date-filter-main div[data-slot="base"] {
+      padding: 0;
+    }
+    .date-filter-main .rdrDateDisplayWrapper {
+      border-radius: 8px 8px 0 0;
+      background-color: white;
+      border-bottom: 1px solid rgb(239, 242, 247);
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
