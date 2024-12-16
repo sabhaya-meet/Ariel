@@ -6,6 +6,8 @@ import { addDays, format } from "date-fns";
 import { IoClose } from "react-icons/io5";
 import { getSessionTag } from "../document/DocumentApi";
 import { debounce } from "lodash";
+import Skeleton from "../../common/Skeleton";
+import SavedQuestionSkeleton from "../../common/SavedQuestionSkeleton";
 
 function SavedResponsesMain() {
   const [likedQuestionData, setLikedQuestionData] = useState([]);
@@ -14,6 +16,7 @@ function SavedResponsesMain() {
   const [contractTypeListData, setContractTypeListData] = useState([]);
   const [totalTags, setTotalTags] = useState([]);
   const [tagSelectedKeys, setTagSelectedKeys] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [dateSet, setDateSet] = useState({
     startDate: format(
       new Date(new Date().setDate(new Date().getDate() - 30)),
@@ -65,6 +68,7 @@ function SavedResponsesMain() {
         (acc, curr) => (acc ? `${acc},${curr}` : curr),
         ""
       );
+      setIsLoading(true);
       likedSessionAIAnswerGetApi(
         query,
         format(startDate, "yyyy-MM-dd 00:00:00.000"),
@@ -75,9 +79,14 @@ function SavedResponsesMain() {
         !!listOfTeamMember ? listOfTeamMember : undefined,
         !!listOfTags ? listOfTags : undefined,
         !!listOfContractType ? listOfContractType : undefined
-      )?.then((res) => {
-        setLikedQuestionData(res?.data);
-      });
+      )
+        ?.then((res) => {
+          setIsLoading(true);
+          setLikedQuestionData(res?.data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     },
     [
       peopleSelectedKeys,
@@ -181,58 +190,68 @@ function SavedResponsesMain() {
             setPeopleName={setPeopleName}
             dateSet={dateSet}
             setDateSet={setDateSet}
+            isLoading={isLoading}
           />
-        </div>
-        <div className="flex flex-wrap gap-1 mb-4">
-          <div className="flex flex-wrap gap-1">
-            {combineFilterData.map((elData) => {
-              const type = peopleSelectedKeys.includes(elData)
-                ? "people"
-                : tagSelectedKeys.includes(elData)
-                ? "tags"
-                : "contractTypes";
-              return (
-                <div className="flex flex-row flex-nowrap gap-1 text-sm items-center text-[#0d121c] font-dmSans w-fit rounded-[20px] px-2 py-1 bg-[#c3c3ef]">
-                  <p>{elData?.email || elData}</p>
-                  <IoClose
-                    onClick={() => handleFilterRemove(elData, type)}
-                    className="w-4 h-4 cursor-pointer text-[#4a4b4d]"
-                  />
-                </div>
-              );
-            })}
-          </div>
-          {combineFilterData.length > 0 && (
-            <p
-              className="px-2 py-1 text-sm text-white underline cursor-pointer font-dmSans"
-              onClick={() => {
-                setPeopleSelectedKeys([]);
-                setPeopleName([]);
-                setContractTypeListData([]);
-                setTagSelectedKeys([]);
-                setSearchQuery("");
-                likedSessionAIAnswerGetApi(
-                  "",
-                  dateSet?.startDate,
-                  dateSet?.endDate
+          <div className="flex flex-wrap gap-1 mb-4">
+            <div className="flex flex-wrap gap-1">
+              {combineFilterData.map((elData) => {
+                const type = peopleSelectedKeys.includes(elData)
+                  ? "people"
+                  : tagSelectedKeys.includes(elData)
+                  ? "tags"
+                  : "contractTypes";
+                return (
+                  <div className="flex flex-row flex-nowrap gap-1 text-sm items-center text-[#0d121c] font-dmSans w-fit rounded-[20px] px-2 py-1 bg-[#c3c3ef]">
+                    <p>{elData?.email || elData}</p>
+                    <IoClose
+                      onClick={() => handleFilterRemove(elData, type)}
+                      className="w-4 h-4 cursor-pointer text-[#4a4b4d]"
+                    />
+                  </div>
                 );
-              }}
-            >
-              Clear all filters
-            </p>
-          )}
-        </div>
+              })}
+            </div>
+            {combineFilterData.length > 0 && (
+              <p
+                className="px-2 py-1 text-sm text-white underline cursor-pointer font-dmSans"
+                onClick={() => {
+                  setPeopleSelectedKeys([]);
+                  setPeopleName([]);
+                  setContractTypeListData([]);
+                  setTagSelectedKeys([]);
+                  setSearchQuery("");
+                  likedSessionAIAnswerGetApi(
+                    "",
+                    dateSet?.startDate,
+                    dateSet?.endDate
+                  );
+                }}
+              >
+                Clear all filters
+              </p>
+            )}
+          </div>
 
-        <div className="h-full gap-4 columns-1 sm:columns-2 md:columns-3">
-          {likedQuestionData?.map((questionData) => {
-            return (
-              <SavedAnswer
-                questionData={questionData}
-                likedQuestionData={likedQuestionData}
-                setLikedQuestionData={setLikedQuestionData}
+          <div className="h-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+            {isLoading ? (
+              <Skeleton
+                content={<SavedQuestionSkeleton />}
+                count={6}
+                className="mb-2 col-span-1"
               />
-            );
-          })}
+            ) : (
+              likedQuestionData?.map((questionData) => {
+                return (
+                  <SavedAnswer
+                    questionData={questionData}
+                    likedQuestionData={likedQuestionData}
+                    setLikedQuestionData={setLikedQuestionData}
+                    isLoading={isLoading}
+                  />
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     </>

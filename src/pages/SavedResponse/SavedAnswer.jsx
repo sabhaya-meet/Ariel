@@ -8,11 +8,14 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import SavedQuestionDelete from "./SavedQuestionDelete";
 import { QuestionLikedPatchApi } from "../Rfps/Data";
 import { likedSessionAIAnswerGetApi } from "./savedAPIData";
+import Skeleton from "../../common/Skeleton";
+import SavedQuestionSkeleton from "../../common/SavedQuestionSkeleton";
 
 export default function SavedAnswer({
   questionData,
   likedQuestionData,
   setLikedQuestionData,
+  isLoading,
 }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [textAreaValue, setTextAreaValue] = useState("");

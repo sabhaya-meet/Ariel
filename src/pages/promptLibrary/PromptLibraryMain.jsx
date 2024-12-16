@@ -4,11 +4,17 @@ import { promptGetData } from "./promptApiData";
 
 export default function PromptLibraryMain() {
   const [promptData, setPromptData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    promptGetData().then((res) => {
-      setPromptData(res?.data);
-    });
+    setIsLoading(true);
+    promptGetData()
+      .then((res) => {
+        setPromptData(res?.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
   return (
     <div className="px-6">
@@ -22,7 +28,7 @@ export default function PromptLibraryMain() {
             workflows.
           </p>
         </div>
-        <PromptsData promptData={promptData} />
+        <PromptsData promptData={promptData} isLoading={isLoading} />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import {
   ModalHeader,
   ModalBody,
   Avatar,
+  Spinner,
 } from "@nextui-org/react";
 import { IoClose } from "react-icons/io5";
 import moment from "moment"; // Import Moment.js
@@ -13,6 +14,7 @@ export default function UserActivityModal({
   activitIsOpen,
   activityOnOpenChange,
   userActivityData,
+  isLoading,
 }) {
   return (
     <Modal
@@ -28,7 +30,7 @@ export default function UserActivityModal({
         {(onClose) => (
           <>
             <ModalHeader className="flex-initial text-large font-semibold items-start justify-between p-6 pb-[22px]">
-              <div className="flex w-full ">
+              <div className="flex w-full">
                 <div className="flex flex-col flex-grow gap-1">
                   <div className="flex justify-between w-full">
                     <p className="text-lg font-semibold font-[Raleway] text-ebony leading-[22px]">
@@ -45,33 +47,44 @@ export default function UserActivityModal({
             <div className="w-full border"></div>
             <ModalBody>
               <div className="flex-1 overflow-y-auto p-0 flex flex-col gap-1 px-2 py-3">
-                {userActivityData.map((item, index) => {
-                  const words = item?.description.split(" ");
+                {/* Show spinner while loading */}
+                {isLoading ? (
+                  <div className="flex justify-center items-center">
+                    <Spinner size="large" />
+                  </div>
+                ) : userActivityData.length === 0 ? (
+                  // Show 'data not found' message if the array is empty
+                  <p className="text-center">Data not found</p>
+                ) : (
+                  // Map over userActivityData when data is available
+                  userActivityData.map((item, index) => {
+                    const words = item?.description.split(" ");
+                    const formattedDate = moment(item?.creation_date).format(
+                      "MMMM D, YYYY [at] h:mm:ss a"
+                    );
 
-                  const formattedDate = moment(item?.creation_date).format(
-                    "MMMM D, YYYY [at] h:mm:ss a"
-                  );
-
-                  return (
-                    <div className="flex gap-2 p-3 items-center" key={index}>
-                      <div>
-                        <Avatar
-                          src={"https://api.trymarvin.com/" + item?.user?.image}
-                        />
+                    return (
+                      <div className="flex gap-2 p-3 items-center" key={index}>
+                        <div>
+                          <Avatar
+                            src={
+                              "https://api.trymarvin.com/" + item?.user?.image
+                            }
+                          />
+                        </div>
+                        <div>
+                          <p>
+                            <span className="font-bold">
+                              {words[0]} {words[1]}
+                            </span>{" "}
+                            {words.slice(2).join(" ")}
+                          </p>
+                          <p>{formattedDate}</p>
+                        </div>
                       </div>
-
-                      <div>
-                        <p>
-                          <span className="font-bold">
-                            {words[0]} {words[1]}
-                          </span>{" "}
-                          {words.slice(2).join(" ")}
-                        </p>
-                        <p>{formattedDate}</p>{" "}
-                      </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                )}
               </div>
             </ModalBody>
           </>

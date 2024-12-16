@@ -77,6 +77,7 @@ export default function HeaderSaved({
   setPeopleName,
   dateSet,
   setDateSet,
+  isLoading,
 }) {
   const [teamMemberData, setTeamMember] = useState([]);
   const [isOpen, setIsOpen] = useState(false);

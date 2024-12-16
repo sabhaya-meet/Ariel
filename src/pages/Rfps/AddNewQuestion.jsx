@@ -85,7 +85,6 @@ export default function AddNewQuestion({
   // setQuestionsList = () => {},
 }) {
   let { id } = useParams();
-  console.log(questionData);
 
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState("");
@@ -453,9 +452,17 @@ export default function AddNewQuestion({
   };
 
   const getCitation = () => {
-    getCitationApi(answer_id).then((response) => {
-      setCitationData(response?.data);
-    });
+    setIsLoading(true); // Show spinner while loading
+    getCitationApi(answer_id)
+      .then((response) => {
+        setCitationData(response?.data); // Store the data from the API
+      })
+      .catch((error) => {
+        console.error("Error fetching citation:", error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Hide spinner after API call completes
+      });
   };
 
   const handleSelectStatus = async (newStatus) => {
@@ -697,7 +704,7 @@ export default function AddNewQuestion({
               classNames={{
                 base: ["before:bg-[#5151A6] dark:before:bg-[#5151A6]"],
                 content: [
-                  " shadow-xl bg-[#5151A6] rounded text-white text-xs font-bold",
+                  "shadow-xl bg-[#5151A6] rounded text-white text-xs font-bold",
                 ],
               }}
             >
@@ -707,8 +714,8 @@ export default function AddNewQuestion({
                     questionData?.answers[questionData?.answers?.length - 1]
                       ?.answer
                   ) {
-                    citationOnOpen();
-                    getCitation();
+                    citationOnOpen(); // Open the modal
+                    getCitation(); // Fetch citation data and show spinner
                   }
                 }}
                 className="flex items-center justify-center cursor-pointer rounded-full h-10 w-10 bg-[#D6D6EB] text-[#5151A6]"
@@ -874,6 +881,7 @@ export default function AddNewQuestion({
         activityOnOpen={activityOnOpen}
         activityOnOpenChange={activityOnOpenChange}
         userActivityData={userActivityData}
+        isLoading={isLoading}
       />
     </>
   );
